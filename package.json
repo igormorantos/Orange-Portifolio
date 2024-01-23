@@ -1,0 +1,14 @@
+{
+  "name": "orange_portifolio",
+  "version": "1.0.0",
+  "description": "uma aplicacao navegavel e responsiva, denominada orange portifolio, que permitira aos usuarios cadastrar e exibir projetos desenvolvidos.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Squad 33",
+  "license": "ISC"
+}
