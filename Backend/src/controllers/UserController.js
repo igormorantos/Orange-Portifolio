@@ -5,13 +5,12 @@ const senhaJwt = require('../services/secretkey')
 
 
 const addUser = async (req, res) => {
-    const { name, email, password, country } = req.body
+    const { firstName, lastName, email, password} = req.body
 
     const salt = await bcrypt.genSalt(10);
     const criptpass = await bcrypt.hash(password, salt);
-    
-    const newUser = await cnn.query('INSERT INTO user (name, email, password, country) VALUES (:name, :email, :password, :country)', {
-        replacements: { name, email, password: criptpass, country },
+    const newUser = await cnn.query('INSERT INTO user (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)', {
+        replacements: { firstName, lastName, email, password: criptpass },
         type: cnn.QueryTypes.INSERT
     });
 
