@@ -1,13 +1,14 @@
-const mysql = require('mysql');
-
-const connection = mysql.createConnection({
+const sequelize = require('sequelize');
+const conn = new sequelize("orangedb", "root", "admin123", {
     host: 'localhost',
-    user: 'root',
-    password: 'admin123',
-    database: 'orangedb'
-});
+    dialect: 'mysql'
+})
 
-connection.connect((err) => {
-    if (err) throw err;
-    console.log('Conectado ao MySQL!');
-});
+conn.authenticate()
+.then(function(){
+    console.log("conexão realizada com sucesso");
+}).catch(function(){
+    console.log("Erro conexão com o banco não realizada");
+})
+
+module.exports = conn
