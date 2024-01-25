@@ -51,8 +51,13 @@ const login = async (req, res) =>{
     }
 }
 
+const detailUser = async (req,res) => {
+    return res.send(req.user)
+}
+
+
 module.exports = {
     addUser,
-    login
+    login,
+    detailUser
 }
-//669308203280-5ja80sk7gmn29dpk6b0n091bpf4q8ar4.apps.googleusercontent.com
