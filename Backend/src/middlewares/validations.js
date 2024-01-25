@@ -3,7 +3,7 @@ const cnn = require('../repository/connection')
 const secretkey = require('../services/secretkey')
 
 
-const checkUserLog = async (req,res) => {
+const checkUserLog = async (req, res, next) => {
     try {
         const authorization = req.headers.authorization
     
@@ -20,6 +20,10 @@ const checkUserLog = async (req,res) => {
             type: cnn.QueryTypes.SELECT
         });
 
+        if (!user) {
+            return res.json({ mensagem: "Para acessar este recurso um token de autenticação válido deve ser enviado." });
+        }
+
         req.user = {
             id:user[0].id,
             first_name:user[0].firstName,
@@ -30,11 +34,12 @@ const checkUserLog = async (req,res) => {
             country:user[0].country
         }
 
-        next();  //tem que ser inserido na rota para testar
     }
     catch(error){
         res.status(401).json({mensagem: error})
     }
+
+    next();
 }
 
 module.exports = checkUserLog
