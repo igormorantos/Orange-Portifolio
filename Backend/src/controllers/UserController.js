@@ -34,6 +34,7 @@ const login = async (req, res) =>{
             replacements: { email },
             type: cnn.QueryTypes.SELECT
         });
+        
         const passwordValid = await bcrypt.compare(password, user[0].password);
     
         if(user.length == 0 || !passwordValid){
@@ -55,9 +56,29 @@ const detailUser = async (req,res) => {
     return res.send(req.user)
 }
 
+const deleteUser = async (req, res) => {
+   try{
+    const user = req.user
+    const id = user.id;
+
+    const deleteUser = await cnn.query('DELETE FROM user WHERE id = :id', {
+        replacements: { id },
+        type: cnn.QueryTypes.DELETE
+    });
+
+    return res.status(401).json({ mensagem:"Conta Deletada" })
+    }
+    catch(error){
+        console.log(error);
+        return res.status(500).json({ mensagem: 'Erro interno do servidor' })
+    }
+
+}
+
 
 module.exports = {
     addUser,
     login,
-    detailUser
+    detailUser,
+    deleteUser
 }
