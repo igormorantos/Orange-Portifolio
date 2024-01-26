@@ -3,7 +3,7 @@ const cnn = require('../repository/connection')
 const secretkey = require('../services/secretkey')
 
 
-const checkUserLog = async (req, res, next) => {
+const checkUserLogg = async (req, res, next) => {
     try {
         const authorization = req.headers.authorization
     
@@ -21,11 +21,11 @@ const checkUserLog = async (req, res, next) => {
         });
 
         if (!user) {
-            return res.json({ mensagem: "Para acessar este recurso um token de autenticação válido deve ser enviado." });
+            return res.status(401).json({ mensagem: "Para acessar este recurso um token de autenticação válido deve ser enviado." });
         }
 
         req.user = {
-            id:user[0].id,
+            id: user[0].id,
             first_name:user[0].firstName,
             last_name:user[0].lastName,
             email:user[0].email,
@@ -33,7 +33,6 @@ const checkUserLog = async (req, res, next) => {
             perfil_photo:user[0].perfilPhoto,
             country:user[0].country
         }
-
     }
     catch(error){
         res.status(401).json({mensagem: error})
@@ -42,4 +41,4 @@ const checkUserLog = async (req, res, next) => {
     next();
 }
 
-module.exports = checkUserLog
+module.exports = checkUserLogg
