@@ -24,7 +24,7 @@ togglePasswordButton.addEventListener('click', function () {
 
 // POST
 const form = document.getElementById('form-api');
-const url = 'https://reqres.in/api/users'; // fake para teste
+const url = 'http://localhost:3000/add'; // fake para teste
 
 form.addEventListener('submit', evento => {
     evento.preventDefault();
@@ -33,7 +33,6 @@ form.addEventListener('submit', evento => {
     var lastname = document.getElementById('lastname').value;
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
-
 
     if (emailStandard.test(email) && password.length >= 8) {
         validCadastro.style.display = "flex";
@@ -57,10 +56,10 @@ form.addEventListener('submit', evento => {
     }
 
     const valuesInputs = {
-        nameUser: name,
-        lastnameUser: lastname,
-        emailUser: email,
-        passwordUser: password
+        firstName: name,
+        lastName: lastname,
+        email: email,
+        password: password
     }
 
     fetch(url, {
