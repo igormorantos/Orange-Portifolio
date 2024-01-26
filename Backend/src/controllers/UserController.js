@@ -55,9 +55,52 @@ const detailUser = async (req,res) => {
     return res.send(req.user)
 }
 
+const editUser = async (req, res) => {
+        try {
+            const user = req.user;
+            const { firstName, lastName, email, password, perfilPhoto, country } = req.body;
+            const id = user.id;
+    
+            let updateUser = {};
+            if (firstName) updateUser.firstName = firstName;
+            if (lastName) updateUser.lastName = lastName;
+            if (email) {
+                const emailExist = await cnn.query('SELECT * FROM user WHERE email = :email', {
+                    replacements: { email },
+                    type: cnn.QueryTypes.SELECT
+                });
+    
+                if (emailExist.length >= 1) {
+                    return res.status(401).json({ mensagem: "O e-mail informado já está sendo utilizado por outro usuário." });
+                }
+                updateUser.email = email;
+            }
+            if (password) {
+                const passCript = await bcrypt.hash(password, 10);
+                updateUser.password = passCript;
+            }
+            if (perfilPhoto) updateUser.perfilPhoto = perfilPhoto;
+            if (country) updateUser.country = country;
+    
+            await cnn.query(
+                `UPDATE user SET ${Object.keys(updateUser).map(key => `${key} = :${key}`).join(', ')} WHERE id = :id`,
+                {
+                    replacements: { ...updateUser, id },
+                    type: cnn.QueryTypes.UPDATE
+                })
+            
+    
+            res.status(201).json(updateUser);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ mensagem: 'Erro interno do servidor' });
+        }    
+}
+
 
 module.exports = {
     addUser,
     login,
-    detailUser
+    detailUser,
+    editUser
 }
