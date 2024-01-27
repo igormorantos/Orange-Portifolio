@@ -138,11 +138,15 @@ const deleteUser = async (req, res) => {
 
 }
 
+const teste = async (req,res) => {
+    res.status(201).send("servidor esta funcionando ")
+}
 
 module.exports = {
     addUser,
     login,
     detailUser,
     editUser,
-    deleteUser
+    deleteUser,
+    teste
 }
