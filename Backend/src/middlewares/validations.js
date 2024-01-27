@@ -1,12 +1,14 @@
 const jwt = require('jsonwebtoken')
 const cnn = require('../repository/connection')
-const secretkey = require('../services/secretkey')
+const dotenv = require('dotenv');
+dotenv.config();
 
 
 const checkUserLogg = async (req, res, next) => {
     try {
         const authorization = req.headers.authorization
-    
+        const secretkey = process.env.SECRETKEY
+        
         if (!authorization) {
             return res.status(401).json({ mensagem: 'Não autorizado' });
         }
