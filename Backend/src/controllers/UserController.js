@@ -1,12 +1,14 @@
 const cnn = require('../repository/connection')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const secretkey = require('../services/secretkey')
+const dotenv = require('dotenv');
+dotenv.config();
+
 
 const addUser = async (req, res) => {
     try{
         const { firstName, lastName, email, password} = req.body
-
+        
         if(!firstName || !lastName || !email || !password){
             return res.status(401).json({ mensagem: "Todos os dados precisam ser preenchidos para criar a conta!" });
         }
@@ -43,6 +45,7 @@ const addUser = async (req, res) => {
 const login = async (req, res) =>{
     try{
         const { email, password } = req.body
+        const secretkey = process.env.SECRETKEY
 
         if(!email || !password) {
             return res.status(401).json({ mensagem: "Todos os dados precisam ser preenchidos para criar a conta!" });
@@ -109,7 +112,7 @@ const editUser = async (req, res) => {
         })
             
         res.status(201).json(updateUser);
-        
+
         } catch (error) {
             console.log(error);
             return res.status(500).json({ mensagem: 'Erro interno do servidor' });
