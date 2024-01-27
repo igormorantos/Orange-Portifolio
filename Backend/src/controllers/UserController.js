@@ -7,6 +7,19 @@ const addUser = async (req, res) => {
     try{
         const { firstName, lastName, email, password} = req.body
 
+        if(!firstName || !lastName || !email || !password){
+            return res.status(401).json({ mensagem: "Todos os dados precisam ser preenchidos para criar a conta!" });
+        }
+
+        const emailExist = await cnn.query('SELECT * FROM user WHERE email = :email', {
+            replacements: { email },
+            type: cnn.QueryTypes.SELECT
+        });
+
+        if (emailExist.length >= 1) {
+                return res.status(401).json({ mensagem: "O e-mail informado já está sendo utilizado por outro usuário." });
+        }
+
         const salt = await bcrypt.genSalt(10);
         const criptpass = await bcrypt.hash(password, salt);
         const newUser = await cnn.query('INSERT INTO user (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)', {
@@ -19,7 +32,7 @@ const addUser = async (req, res) => {
         type: cnn.QueryTypes.SELECT
         });
 
-        return res.status(201).json(user)
+        return res.status(201).json({user, mensagem: "usuario criado"})
     }
     catch(error){
         console.log(error);
@@ -30,6 +43,11 @@ const addUser = async (req, res) => {
 const login = async (req, res) =>{
     try{
         const { email, password } = req.body
+
+        if(!email || !password) {
+            return res.status(401).json({ mensagem: "Todos os dados precisam ser preenchidos para criar a conta!" });
+        }
+
         const user = await cnn.query('SELECT * FROM user WHERE email = :email', {
             replacements: { email },
             type: cnn.QueryTypes.SELECT
@@ -57,41 +75,41 @@ const detailUser = async (req,res) => {
 }
 
 const editUser = async (req, res) => {
-        try {
-            const user = req.user;
-            const { firstName, lastName, email, password, perfilPhoto, country } = req.body;
-            const id = user.id;
+    try {
+        const user = req.user;
+        const { firstName, lastName, email, password, perfilPhoto, country } = req.body;
+        const id = user.id;
     
-            let updateUser = {};
-            if (firstName) updateUser.firstName = firstName;
-            if (lastName) updateUser.lastName = lastName;
-            if (email) {
-                const emailExist = await cnn.query('SELECT * FROM user WHERE email = :email', {
-                    replacements: { email },
-                    type: cnn.QueryTypes.SELECT
-                });
+        let updateUser = {};
+        if (firstName) updateUser.firstName = firstName;
+        if (lastName) updateUser.lastName = lastName;
+        if (email) {
+            const emailExist = await cnn.query('SELECT * FROM user WHERE email = :email', {
+                replacements: { email },
+                type: cnn.QueryTypes.SELECT
+            });
     
-                if (emailExist.length >= 1) {
-                    return res.status(401).json({ mensagem: "O e-mail informado já está sendo utilizado por outro usuário." });
-                }
-                updateUser.email = email;
+            if (emailExist.length >= 1) {
+                return res.status(401).json({ mensagem: "O e-mail informado já está sendo utilizado por outro usuário." });
             }
-            if (password) {
-                const passCript = await bcrypt.hash(password, 10);
-                updateUser.password = passCript;
-            }
-            if (perfilPhoto) updateUser.perfilPhoto = perfilPhoto;
-            if (country) updateUser.country = country;
+            updateUser.email = email;
+        }
+        
+        if (password) {
+            const passCript = await bcrypt.hash(password, 10);
+            updateUser.password = passCript;
+        }
+        if (perfilPhoto) updateUser.perfilPhoto = perfilPhoto;
+        if (country) updateUser.country = country;
     
-            await cnn.query(
-                `UPDATE user SET ${Object.keys(updateUser).map(key => `${key} = :${key}`).join(', ')} WHERE id = :id`,
-                {
-                    replacements: { ...updateUser, id },
-                    type: cnn.QueryTypes.UPDATE
-                })
+        await cnn.query(`UPDATE user SET ${Object.keys(updateUser).map(key => `${key} = :${key}`).join(', ')} WHERE id = :id`,
+        {
+            replacements: { ...updateUser, id },
+            type: cnn.QueryTypes.UPDATE
+        })
             
-    
-            res.status(201).json(updateUser);
+        res.status(201).json(updateUser);
+        
         } catch (error) {
             console.log(error);
             return res.status(500).json({ mensagem: 'Erro interno do servidor' });
