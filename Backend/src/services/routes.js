@@ -6,7 +6,7 @@ const checkUserLogg = require('../middlewares/validations');
 
 //User
 routes.post('/add', addUser)
-routes.get('/login', login)
+routes.post('/login', login)
 routes.get('/detailUser', checkUserLogg, detailUser)
 routes.patch('/editUser', checkUserLogg, editUser)
 routes.delete('/deleteUser',checkUserLogg, deleteUser)
