@@ -55,6 +55,10 @@ const login = async (req, res) =>{
             replacements: { email },
             type: cnn.QueryTypes.SELECT
         });
+
+        if(user.length == 0) {
+            return res.status(401).json({ mensagem: "Usuario incorreto ou não existe!" });
+        }
         
         const passwordValid = await bcrypt.compare(password, user[0].password);
     
