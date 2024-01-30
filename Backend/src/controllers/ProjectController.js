@@ -1,5 +1,7 @@
 const createProject = require('../services/Projects/create-project');
 const updateProject = require('../services/Projects/update-projetc');
+const updateImgProject = require('../services/Projects/uploadimg-project');
+
 const Project = require('../models/Project');
 
 class ProjectController {
@@ -35,6 +37,23 @@ class ProjectController {
       return res.json(project);
     } catch(error) {
       return res.status(401).send('Não foi possível atualizar');
+    }
+  }
+
+  async updateImg(req, res) {
+    const { id } = req.params;
+
+    try {
+      const projectLoadImg = new updateImgProject();
+
+      const coverPhoto = await projectLoadImg.execute({
+        project_id: id,
+        projectImg: req.file.filename
+      });
+
+      return res.json(coverPhoto);
+    } catch(error) {
+      return res.status(401).send('Não foi possível atualizar a imagem');
     }
   }
 
