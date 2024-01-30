@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "test",
-    "dev": "nodemon ./Backend/src/services/index.js"
+    "dev": "nodemon ./Backend/src/services/index.js",
+    "start": "node ./Backend/src/services/index.js"
   },
   "author": "Squad 33",
   "license": "ISC",
