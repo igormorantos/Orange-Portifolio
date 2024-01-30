@@ -6,6 +6,7 @@ const projectController = require('../controllers/ProjectController');
 const checkUserLogg = require('../middlewares/validations');
 
 //User
+routes.get('/', res.send('Servidor esta funcionando'))
 routes.post('/add', addUser)
 routes.get('/login', login)
 routes.get('/detailUser', checkUserLogg, detailUser)
