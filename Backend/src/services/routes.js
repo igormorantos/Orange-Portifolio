@@ -4,7 +4,9 @@ const multer = require('multer');
 
 const conn = require('../repository/connection');
 const {addUser, login, detailUser, deleteUser, editUser, teste} = require('../controllers/UserController');
+
 const projectController = require('../controllers/ProjectController');
+
 const checkUserLogg = require('../middlewares/validations');
 
 const uploadConfig = require('../config/upload');

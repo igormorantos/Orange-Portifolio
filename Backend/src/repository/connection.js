@@ -9,8 +9,8 @@ const host = process.env.HOST
 const db = process.env.DIALECT
 
 const conn = new sequelize(nameDB, userDB, passDB, {
-    host: host,
-    dialect: db
+    host:host,
+    dialect:db
 })
 
 conn.authenticate()

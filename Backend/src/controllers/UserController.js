@@ -60,6 +60,10 @@ const login = async (req, res) =>{
             return res.status(401).json({ mensagem: "Usuario incorreto ou não existe!" });
         }
         
+        if(user.length == 0) {
+            return res.status(401).json({ mensagem: "Usuario incorreto ou não existe!" });
+        }
+
         const passwordValid = await bcrypt.compare(password, user[0].password);
     
         if(user.length == 0 || !passwordValid){
@@ -143,7 +147,8 @@ const deleteUser = async (req, res) => {
 }
 
 const teste = async (req,res) => {
-    return res.send("servidor esta funcionando")
+  
+ return res.send("servidor esta funcionando")
 }
 
 module.exports = {
