@@ -72,7 +72,7 @@ A API estará acessível em: http://localhost:3000
 
 Documentação: Melhorar a documentação da API, incluindo exemplos de como usar as rotas.
 
-<h2>>🔎Status do projeto</h2>
+<h2>🔎Status do projeto</h2>
 
 O projeto está em fase de desenvolvimento, mas já está funcional.
 
