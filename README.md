@@ -47,15 +47,25 @@ A API estará acessível em: http://localhost:3000
 <h2>🌐Rotas da API</h2>
 
 /	GET	Verifica o status da API
+
 /add	POST	Cria uma conta
+
 /login	POST	Faz login em uma conta
+
 /detailUser	GET	Visualiza os detalhes de uma conta
+
 /editUser	PATCH	Edita os detalhes de uma conta
+
 /deleteUser	DELETE	Exclui uma conta
+
 /projects	POST	Cria um projeto
+
 /projects	GET	Visualiza todos os projetos
+
 /projects/:id	GET	Visualiza um projeto específico
+
 /projects/:id	PATCH	Edita um projeto específico
+
 /projects/:id	DELETE	Exclui um projeto específico
 
 <h2>💎Implementações futuras</h2>
