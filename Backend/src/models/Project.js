@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../repository/connection'); // Importe a configuração do Sequelize
 
-const Project = sequelize.define('Project', {
+const Project = sequelize.define('project', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,

@@ -3,7 +3,7 @@ const routes = express();
 const multer = require('multer');
 
 const conn = require('../repository/connection');
-const {addUser, login, detailUser, deleteUser, editUser} = require('../controllers/UserController');
+const {addUser, login, detailUser, deleteUser, editUser, teste} = require('../controllers/UserController');
 const projectController = require('../controllers/ProjectController');
 const checkUserLogg = require('../middlewares/validations');
 
@@ -11,8 +11,9 @@ const uploadConfig = require('../config/upload');
 const upload = multer(uploadConfig.multer);
 
 //User
+routes.get('/', teste)
 routes.post('/add', addUser)
-routes.get('/login', login)
+routes.post('/login', login)
 routes.get('/detailUser', checkUserLogg, detailUser)
 routes.patch('/editUser', checkUserLogg, editUser)
 routes.delete('/deleteUser', checkUserLogg, deleteUser)

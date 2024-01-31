@@ -8,14 +8,15 @@
   },
   "scripts": {
     "test": "test",
-    "dev": "nodemon ./Backend/src/services/index.js"
+    "dev": "nodemon ./Backend/src/services/index.js",
+    "start": "node ./Backend/src/services/index.js"
   },
   "author": "Squad 33",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1546.0",
+    "cors": "^2.8.5",
     "bcrypt": "^5.1.1",
-    "crypto": "^1.0.1",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
