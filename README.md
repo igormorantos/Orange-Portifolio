@@ -16,8 +16,9 @@ Este projeto é uma implementação de uma API que permite aos usuários criar e
 
 <h2>📡Tecnologias utilizadas</h2>
 
-Linguagem: Node.js
-Banco de dados: MySQL
+- Linguagem: Node.js
+- Banco de dados: MySQL
+- Armazenamento de imagens: Bucket S3
 
 <h2>⏳Inicialização</h2>
 
