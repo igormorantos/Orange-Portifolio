@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
+
+  
   User.init({
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
@@ -25,4 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'User',
   });
   return User;
+
+
+
 };
