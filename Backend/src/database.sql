@@ -8,7 +8,8 @@ CREATE TABLE user (
   perfilPhoto BLOB,
   country VARCHAR(255)
 );
-CREATE TABLE project(
+
+CREATE TABLE project (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   tags VARCHAR(255),
