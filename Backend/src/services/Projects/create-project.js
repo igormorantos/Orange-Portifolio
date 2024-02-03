@@ -13,8 +13,7 @@ async function createProject(data) {
 
         return project;
     } catch (error) {
-        console.error('Erro no cadastro:', error);
-        throw new Error('Fail to register');
+        console.error('Erro no cadastro:');
         // Aqui você pode retornar uma mensagem de erro ou fazer o que for apropriado
     }
 }
