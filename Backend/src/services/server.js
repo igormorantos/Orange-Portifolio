@@ -12,7 +12,6 @@ app.use(cors({
     origin: 'https://orange-portifolio-frontend.vercel.app'
 }));
 
-app.options('*', cors()) // Adiciona suporte para solicitações preflight
 app.use(express.json());
 app.use(routes)
 
