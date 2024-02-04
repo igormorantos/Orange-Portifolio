@@ -9,9 +9,10 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin:'https://orange-portifolio-frontend.vercel.app', //Especificando a origem permitida trocar apos o deploy do frontend
+    origin: '*', // Permitir qualquer origem
 }));
 
+app.options('*', cors()) // Adiciona suporte para solicitações preflight
 app.use(express.json());
 app.use(routes)
 
