@@ -31,6 +31,8 @@ const Project = sequelize.define('project', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+},{
+  tableName: 'project'
 });
 
 Project.associate = (models) => {

@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../repository/connection'); // Importe a configuração do Sequelize
 
-const User = sequelize.define('User', {
+const User = sequelize.define('user', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -24,13 +24,15 @@ const User = sequelize.define('User', {
     allowNull: false,
   },
   perfilPhoto: {
-    type: DataTypes.BLOB,
-    allowNull: false,
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   country: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+    type: DataTypes.STRING,
+    allowNull: true,
   },
+},{
+  tableName: 'user'
 });
 
 module.exports = User;

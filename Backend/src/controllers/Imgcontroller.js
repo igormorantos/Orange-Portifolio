@@ -7,7 +7,7 @@ class ImgController {
     
           const coverPhoto = await uploadImg.execute(req.file.filename);
     
-          return res.send(coverPhoto);
+          return res.json({imgURL: coverPhoto});
         } catch(error) {
           return res.status(401).send('Não foi possível carregar a imagem');
         }

@@ -4,19 +4,31 @@ const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv');
 dotenv.config();
 
+const User = require('../models/User');
+
 
 const addUser = async (req, res) => {
     try{
-        const { firstName, lastName, email, password} = req.body
+        const { firstName, lastName, email, password, country} = req.body
         
         if(!firstName || !lastName || !email || !password){
             return res.status(401).json({ mensagem: "Todos os dados precisam ser preenchidos para criar a conta!" });
         }
 
-        const emailExist = await cnn.query('SELECT * FROM user WHERE email = :email', {
+        /*const emailExist = await cnn.query('SELECT * FROM user WHERE email = :email', {
             replacements: { email },
             type: cnn.QueryTypes.SELECT
-        });
+        });*/
+
+        let emailExist = '';
+
+        try {
+            emailExist = await User.findOne({
+                where: email,
+            });
+        } catch (error) {
+            console.log('not found');
+        }
 
         if (emailExist.length >= 1) {
                 return res.status(401).json({ mensagem: "O e-mail informado já está sendo utilizado por outro usuário." });
@@ -24,17 +36,26 @@ const addUser = async (req, res) => {
 
         const salt = await bcrypt.genSalt(10);
         const criptpass = await bcrypt.hash(password, salt);
-        const newUser = await cnn.query('INSERT INTO user (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)', {
+        /*const newUser = await cnn.query('INSERT INTO user (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)', {
             replacements: { firstName, lastName, email, password: criptpass },
             type: cnn.QueryTypes.INSERT
+        });*/
+
+        const newUser = await User.create({
+            firstName,
+            lastName,
+            email,
+            password: criptpass,
+            perfilPhoto: null,
+            country
         });
 
-        const user = await cnn.query('SELECT * FROM user WHERE email = :email', {
+        /*const user = await cnn.query('SELECT * FROM user WHERE email = :email', {
         replacements: { email },
         type: cnn.QueryTypes.SELECT
-        });
+        }); */
 
-        return res.status(201).json({user, mensagem: "usuario criado"})
+        return res.status(201).json({newUser, mensagem: "usuario criado"})
     }
     catch(error){
         console.log(error);
