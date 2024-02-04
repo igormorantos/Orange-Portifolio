@@ -18,8 +18,13 @@ class ProjectController {
   }
 
   async read(req, res) {
+    const { id } = req.params;
     try {
-      const projects = await Project.findAll();
+      const projects = await Project.findAll({
+        where: {
+          fk_iduser: id,
+        }
+      });
 
       return res.json(projects);
     } catch (error) {

@@ -22,7 +22,7 @@ routes.delete('/deleteUser', checkUserLogg, deleteUser)
 
 //Project
 routes.post('/projects', checkUserLogg, projectController.create)
-routes.get('/projects', checkUserLogg, projectController.read)
+routes.get('/projects/:id', checkUserLogg, projectController.read)
 routes.delete('/projects/:id', checkUserLogg, projectController.delete)
 routes.patch('/projects/:id', checkUserLogg, projectController.update)
 routes.patch('/coverphoto/:id', upload.single('photo'), checkUserLogg, projectController.updateImg)
