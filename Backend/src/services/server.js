@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin: '*'
+    origin: 'https://orange-portifolio-frontend.vercel.app'
 }));
 
 app.options('*', cors()) // Adiciona suporte para solicitações preflight
