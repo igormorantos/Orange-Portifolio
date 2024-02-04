@@ -1,5 +1,9 @@
 node_modules
+<<<<<<< HEAD
 
 .env
 
 /tmp*
+=======
+.env
+>>>>>>> 190a0464f99fff46d7223c3d59415fdc74ea97c8
