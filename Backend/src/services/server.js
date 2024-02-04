@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin: '*', // Permitir qualquer origem
+    origin: '*'
 }));
 
 app.options('*', cors()) // Adiciona suporte para solicitações preflight
