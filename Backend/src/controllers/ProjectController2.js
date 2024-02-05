@@ -18,7 +18,7 @@ const addProject = async (req, res) => {
             type: cnn.QueryTypes.INSERT
         });
 
-        return res.status(201).json({newUser, mensagem: "usuario criado"})
+        return res.status(201).json({mensagem: "projeto criado"})
     }
     catch(error){
         console.log(error);
