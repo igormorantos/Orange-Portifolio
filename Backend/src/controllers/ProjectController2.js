@@ -72,9 +72,37 @@ const deleteProject = async (req,res) => {
   }
         return res.status(201).json({project, mensagem: "projeto deletado"})
 }
+
+const editProject = async (req,res) => {
+   try{
+    
+    const id = req.params.id;
+    const { title, link, tags, description, coverphoto} = req.body;
+
+    let updateProject = {};
+    if (title) updateProject.title = title;
+    if (link) updateProject.link = link;
+    if (description) updateProject.description = description;
+    if (coverphoto) updateProject.coverphoto = coverphoto;
+
+    await cnn.query(`UPDATE project SET ${Object.keys(updateProject).map(key => `${key} = :${key}`).join(', ')} WHERE id = :id`,
+    {
+        replacements: { ...updateProject, id },
+        type: cnn.QueryTypes.UPDATE
+    })
+
+    console.log(updateProject)
+        
+    res.status(200).json("projeto editado");
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+
+}
 module.exports = {
     
     addProject,
     readProject,
-    deleteProject
+    deleteProject,
+    editProject
 }
