@@ -4,7 +4,7 @@ const multer = require('multer');
 
 const conn = require('../repository/connection');
 const {addUser, login, detailUser, deleteUser, editUser, teste} = require('../controllers/UserController');
-const addProject = require('../controllers/ProjectController2');
+const { addProject, readProject } = require('../controllers/ProjectController2');
 
 const projectController = require('../controllers/ProjectController');
 const imgController = require('../controllers/Imgcontroller');
@@ -23,7 +23,7 @@ routes.delete('/deleteUser', checkUserLogg, deleteUser)
 
 //Project
 routes.post('/projects', checkUserLogg, addProject)
-routes.get('/projects/:id', checkUserLogg, projectController.read)
+routes.get('/projects/:id', checkUserLogg, readProject)
 routes.delete('/projects/:id', checkUserLogg, projectController.delete)
 routes.patch('/projects/:id', checkUserLogg, projectController.update)
 routes.patch('/coverphoto/:id', upload.single('photo'), checkUserLogg, projectController.updateImg)

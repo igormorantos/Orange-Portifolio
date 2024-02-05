@@ -26,4 +26,24 @@ const addProject = async (req, res) => {
     }
 }
 
-module.exports = addProject
+const readProject = async (req,res) => {
+    try{
+    const {fk_iduser} = req.body
+
+        const newUser = await cnn.query('SELECT * FROM project WHERE fk_iduser = :fk_iduser', {
+            replacements: { fk_iduser },
+            type: cnn.QueryTypes.INSERT
+        });
+
+        return res.status(201).json({newUser, mensagem: "usuarios carregados"})
+    }
+    catch(error)
+    {
+        res.json(error)
+    }
+}
+module.exports = {
+    
+    addProject,
+    readProject
+}
