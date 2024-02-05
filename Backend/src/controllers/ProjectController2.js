@@ -47,10 +47,34 @@ const readProject = async (req,res) => {
   } catch (error) {
     res.json(error);
   }
-        return res.status(201).json({newUser, mensagem: "usuarios carregados"})
+        return res.status(201).json({project, mensagem: "projeto carregados"})
+}
+
+const deleteProject = async (req,res) => {
+    try{
+
+    const id = req.params.id;
+
+
+    const project = await cnn.query('DELETE FROM project WHERE id = :id', {
+      replacements: { id },
+      type: cnn.QueryTypes.SELECT,
+    });
+
+    if (!project) {
+      return res.status(404).json({ mensagem: "Projeto não encontrado" });
+    }
+
+
+    return res.status(200).json(project);
+  } catch (error) {
+    res.json(error);
+  }
+        return res.status(201).json({project, mensagem: "projeto deletado"})
 }
 module.exports = {
     
     addProject,
-    readProject
+    readProject,
+    deleteProject
 }
