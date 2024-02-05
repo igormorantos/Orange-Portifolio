@@ -28,19 +28,26 @@ const addProject = async (req, res) => {
 
 const readProject = async (req,res) => {
     try{
-    const {fk_iduser} = req.body
+        // **Capturando o valor do parâmetro :id**
+    const fk_iduser = req.params.id;
 
-        const newUser = await cnn.query('SELECT * FROM project WHERE fk_iduser = :fk_iduser', {
-            replacements: { fk_iduser },
-            type: cnn.QueryTypes.INSERT
-        });
+    // **Consultando o projeto no banco de dados**
+    const project = await cnn.query('SELECT * FROM project WHERE fk_iduser = :fk_iduser', {
+      replacements: { fk_iduser },
+      type: cnn.QueryTypes.SELECT,
+    });
 
+    // **Verificando se o projeto foi encontrado**
+    if (!project) {
+      return res.status(404).json({ mensagem: "Projeto não encontrado" });
+    }
+
+    // **Retornando o projeto encontrado**
+    return res.status(200).json(project);
+  } catch (error) {
+    res.json(error);
+  }
         return res.status(201).json({newUser, mensagem: "usuarios carregados"})
-    }
-    catch(error)
-    {
-        res.json(error)
-    }
 }
 module.exports = {
     
