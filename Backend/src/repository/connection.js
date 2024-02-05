@@ -17,7 +17,7 @@ conn.authenticate()
 .then(function(){
     console.log("conexão realizada com sucesso");
 }).catch(function(){
-    console.log("Erro conexão com o banco não realizada");
+    console.log("conexão não realizada");
 })
 
 module.exports = conn

@@ -7,11 +7,11 @@ const Project = require('../models/Project');
 class ProjectController {
   async create(req, res) {
     const data = req.body;
-
+    return res.json(data)
     try {
         const project = await createProject(data);
-
-        return res.json(project);
+        console.log(data)
+        return res.json(project, "criou!");
     } catch(error) {
         return res.status(400).send('Falha ao cadastrar');
     }
