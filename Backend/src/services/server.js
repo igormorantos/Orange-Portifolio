@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin: 'https://orange-portifolio-frontend.vercel.app',
+    origin: '*' //'https://orange-portifolio-frontend.vercel.app',
 }));
 
 app.use(express.json());
